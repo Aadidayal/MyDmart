@@ -1,0 +1,48 @@
+body {
+    background-color: #000; 
+    color: #f9c74f;
+  }
+  .signup-container {
+    margin-top: 20px;
+    background-color: #1c1c1c;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); 
+  }
+  fieldset {
+    border: 2px solid #f9c74f; 
+    padding: 15px;
+    border-radius: 10px;
+  }
+  legend {
+    color: #f9c74f; 
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .form-group label {
+    font-weight: bold;
+    color: #f9c74f;
+  }
+  .form-control {
+    background-color: #333; 
+    color: #f9c74f; 
+    border: 1px solid #f9c74f; 
+  }
+  .btn-custom {
+    background-color: #f9c74f; 
+    color: black;
+  }
+  .btn-custom:hover {
+    background-color: #f9c74f; 
+    /* color: white; */
+  }
+  .btn-secondary {
+    background-color: #333; 
+    color: #f9c74f; 
+  }
+  .btn-secondary:hover {
+    background-color: #444; 
+    /* color: white; */
+  }
+  
+  
