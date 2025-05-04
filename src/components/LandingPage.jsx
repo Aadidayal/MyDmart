@@ -1,208 +1,161 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faShoppingCart, 
+  faTruck, 
+  faStar, 
+  faGift,
+  faEnvelope,
+  faQuoteLeft
+} from '@fortawesome/free-solid-svg-icons';
 
 const LandingPage = () => {
   return (
     <div className="landing-page">
-      {/* Main Content Section */}
-      <div className="main_slide">
-        <div>
-          <h1>Enjoy <span>Delicious Food</span> in Your Healthy Life</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam magni dolores provident accusamus hic architecto...</p>
-          <Link to="/login">
-            <button className="red_btn">Visit Now <i className="fa-solid fa-arrow-right-long"></i></button>
+      {/* Hero Section */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <h1>Welcome to <span>D-Mart</span></h1>
+          <p>Your One-Stop Shop for Everything</p>
+          <div className="search-bar">
+            <input type="text" placeholder="Search for products..." />
+            <button>Search</button>
+          </div>
+          <Link to="/products" className="cta-button">
+            Shop Now <FontAwesomeIcon icon={faShoppingCart} />
           </Link>
         </div>
-        <div>
-          <img
-            src="https://img.freepik.com/free-photo/top-view-vegetable-pate-rolls-with-tomatoes-french-fries-inside-plate-white-surface_179666-35644.jpg"
-            alt="Delicious food"
-          />
-        </div>
-      </div>
+      </section>
 
-      {/* Food Items Section */}
-      <div className="food-items">
-        <div className="item">
-          <div>
-            <img
-              src="https://www.thespruceeats.com/thmb/hqqNrNhIpqPqV2u0T0K-IUzUsEo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SES-cuisine-of-north-india-1957883-d32a933f506d43f59ac38a8eb956884a.jpg"
-              alt="Indian Cuisine"
-            />
-          </div>
-          <h3>Indian</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, nihil?</p>
-          <button className="white_btn">See Menu</button>
-        </div>
-        <div className="item">
-          <div>
-            <img
-              src="https://assets.zeezest.com/blogs/PROD_Banner_1663162846668.jpg"
-              alt="Chinese Cuisine"
-            />
-          </div>
-          <h3>Chinese</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, nihil?</p>
-          <button className="red_btn">See Menu</button>
-        </div>
-        <div className="item">
-          <div>
-            <img
-              src="https://gobargingwp-s3.s3.eu-west-1.amazonaws.com/wp-content/uploads/2022/08/Top-Italian-Dishes-Fettuccine-al-Pomodoro.jpg"
-              alt="Italian Cuisine"
-            />
-          </div>
-          <h3>Italian</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, nihil?</p>
-          <button className="white_btn">See Menu</button>
-        </div>
-      </div>
-
-      {/* New "See Menu" Button Section */}
-      <div className="see-menu-btn">
-        <h2>Ready to Order?</h2>
-        <p>Browse through our full menu and order your favorite dishes now!</p>
-        
-        {/* <a href="" className='red_btn'> see Menu</a> */}
-      </div>
-
-      {/* Why People Choose Us Section */}
-      <div className="main_slide2">
-        <div className="fooding">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRIo_rhWkJoR7Tlt5tOdhTr8EyEjDVBLCQ-g&s"
-            alt="Fooding"
-          />
-        </div>
-        <div className="question">
-          <h2>Why People Choose Us?</h2>
-          <div className="q-ans">
-            <div>
+      {/* Categories Section */}
+      <section className="categories-section">
+        <h2 className="section-title">Shop by Category</h2>
+        <div className="categories-grid">
+          <div className="category-card">
+            <div className="category-image-container">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzxOvve495ED7buFewof1H6_xwRSTlEyQ_QQ&s"
-                alt="Choose Your Favourite"
+                src="https://images.unsplash.com/photo-1541014741257-de529411b96a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Groceries"
+                className="category-image"
               />
-            </div>
-            <div>
-              <h4>Choose Your Favourite</h4>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              <div className="category-overlay">
+                <h3>Groceries</h3>
+                <p>Fresh produce and daily essentials</p>
+                <Link to="/category/1" className="explore-btn">Explore</Link>
+              </div>
             </div>
           </div>
-          <div className="q-ans">
-            <div>
+          <div className="category-card">
+            <div className="category-image-container">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGCWRAS78kPzwtma4WFjxvLAvagtfJ6n3hYg&s"
-                alt="Fast Delivery"
+                src="https://images.unsplash.com/photo-1519558260268-cde7e03a0152?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Electronics"
+                className="category-image"
               />
-            </div>
-            <div>
-              <h4>Fast Delivery</h4>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              <div className="category-overlay">
+                <h3>Electronics</h3>
+                <p>Latest gadgets and devices</p>
+                <Link to="/category/2" className="explore-btn">Explore</Link>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Special Offer Section */}
-      <div className="main_slide3">
-        <div className="special-offer">
-          <h2>Special Offer</h2>
-          <div className="offer-items">
-            <div className="item">
+          <div className="category-card">
+            <div className="category-image-container">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5v8XfGntzqbrF2eR9IzrcmioR0V4_0z9APYtQ"
-                alt="Mango Lassi"
+                src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80"
+                alt="Fashion"
+                className="category-image"
               />
-              <h3>Mango Lassi</h3>
-              <p>A refreshing and creamy yogurt drink with ripe mangoes.</p>
-              <p className="fav-price">80 Rs</p>
+              <div className="category-overlay">
+                <h3>Fashion</h3>
+                <p>Trendy clothing and accessories</p>
+                <Link to="/category/3" className="explore-btn">Explore</Link>
+              </div>
             </div>
-            <div className="item">
+          </div>
+        </div>
+      </section>
+
+      {/* Special Offers Section */}
+      <section className="special-offers">
+        <div className="container">
+          <h2 className="section-title">Special Offers</h2>
+          <div className="offers-grid">
+            <div className="offer-card">
+              <div className="offer-badge">50% OFF</div>
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLK4ok3unxepdlWf0H3rrpu1CUelfHOQyKPw&s"
-                alt="Gulab Jamun"
+                src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Weekend Sale"
               />
-              <h3>Gulab Jamun</h3>
-              <p>Traditional Indian dessert soaked in a sweet syrup.</p>
-              <p className="fav-price">70 Rs</p>
+              <h3>Weekend Special</h3>
+              <p>Up to 50% off on selected items</p>
+              <Link to="/offers" className="offer-btn">Shop Now</Link>
+            </div>
+            <div className="offer-card">
+              <div className="offer-badge">NEW</div>
+              <img
+                src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="New Arrivals"
+              />
+              <h3>New Arrivals</h3>
+              <p>Check out our latest products</p>
+              <Link to="/new-arrivals" className="offer-btn">Explore</Link>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Customer Feedback Section */}
-      <div className="main_slide4">
-        <div className="chef-feed">
-          <h2>Customer Feedback</h2>
-          <p>"One of the best dining experiences I've had. The flavors are fantastic, and the service is impeccable!"</p>
-          <div className="chef-detail">
-            <img
-              src="https://cdn.vectorstock.com/i/500p/13/88/restaurant-icon-vector-381388.jpg"
-              alt="Chef"
-            />
-            <div>
-              <h6>Prince Devil</h6>
-              <p>Ethical Hacker</p>
+      {/* Testimonials Section */}
+      <section className="testimonials">
+        <div className="container">
+          <h2 className="section-title">What Our Customers Say</h2>
+          <div className="testimonials-grid">
+            <div className="testimonial-card">
+              <FontAwesomeIcon icon={faQuoteLeft} className="quote-icon" />
+              <p>"D-Mart has transformed my shopping experience. Great products, amazing prices, and excellent service!"</p>
+              <div className="testimonial-author">
+                <img
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+                  alt="Sarah Johnson"
+                />
+                <div>
+                  <h4>Sarah Johnson</h4>
+                  <p>Regular Customer</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="chef-vic">
-            <div>
-              <i className="fa-solid fa-hand-peace"></i>
-              <h4>68</h4>
-              <p>Votes</p>
-            </div>
-            <div>
-              <i className="fa-solid fa-trophy"></i>
-              <h4>956</h4>
-              <p>Achievements</p>
+            <div className="testimonial-card">
+              <FontAwesomeIcon icon={faQuoteLeft} className="quote-icon" />
+              <p>"The delivery is always on time, and the quality of products is consistently excellent. Highly recommended!"</p>
+              <div className="testimonial-author">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+                  alt="Michael Brown"
+                />
+                <div>
+                  <h4>Michael Brown</h4>
+                  <p>Premium Member</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="chef">
-          <img
-            src="https://png.pngtree.com/png-vector/20220719/ourmid/pngtree-cute-little-boy-chef-holding-a-silver-tray-png-image_6021308.png"
-            alt="Chef"
-          />
-        </div>
-      </div>
+      </section>
 
-      {/* Footer */}
-      <div className="footer">
-        <div className="footer-1">
-          <div className="logo">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMT6pLh_HGtjX0m6T3wCYb51HCJhAbcBqdRA&s"
-              alt="Official Logo"
-            />
-          </div>
-          
-          <div>
-            <address>
-              <a href="mailto:aadi0256.be23@chitkara.edu.in?subject=enquiry&body=please book a table for me">
-                Click to send us a mail!!
-              </a>
-              <p>Mr. Restrooooo, <br /> Rajpura, Punjab, India</p>
-            </address>
-          </div>
+      {/* Newsletter Section */}
+      <section className="newsletter">
+        <div className="container">
+          <h2>Subscribe to Our Newsletter</h2>
+          <p>Get the latest updates on new products and special offers</p>
+          <form className="newsletter-form">
+            <input type="email" placeholder="Enter your email" required />
+            <button type="submit">
+              <FontAwesomeIcon icon={faEnvelope} /> Subscribe
+            </button>
+          </form>
         </div>
-        <div className="contact-us">
-          <h2 id="contact">Contact Us</h2>
-          <div className="social-icons">
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-youtube"></i>
-            </a>
-            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-linkedin"></i>
-            </a>
-          </div>
-        </div>
-      </div>
+      </section>
     </div>
   );
 };

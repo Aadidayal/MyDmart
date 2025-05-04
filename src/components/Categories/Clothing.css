@@ -1,0 +1,136 @@
+.clothing-category-page {
+  padding: 2rem 0;
+  background: #f9f9fa;
+}
+
+.clothing-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.clothing-filter-bar label {
+  font-weight: 500;
+  color: #333;
+}
+
+.clothing-filter-bar select {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.category-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.clothing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.clothing-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+  height: 320px;
+}
+
+.clothing-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+}
+
+.clothing-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.clothing-name {
+  font-size: 1.1rem;
+  color: #222;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  min-height: 40px;
+}
+
+.clothing-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.clothing-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.clothing-original-price {
+  font-size: 1rem;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.clothing-discount {
+  font-size: 1rem;
+  color: #00b852;
+  font-weight: 500;
+}
+
+.clothing-btn {
+  margin-top: auto;
+  padding: 0.7rem 1.5rem;
+  background: #f9c74f;
+  color: #222;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.clothing-btn:hover {
+  background: #f3b61f;
+}
+
+@media (max-width: 1200px) {
+  .clothing-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .clothing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .clothing-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .clothing-card {
+    height: auto;
+    padding: 1rem;
+  }
+} 
