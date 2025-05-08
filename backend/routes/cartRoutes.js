@@ -96,7 +96,15 @@ router.delete('/remove/:productId', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'Item not found in cart' });
     }
 
-    cart.items.splice(itemIndex, 1);
+    // If quantity is more than 1, reduce by 1
+    if (cart.items[itemIndex].quantity > 1) {
+      cart.items[itemIndex].quantity -= 1;
+      cart.items[itemIndex].lastUpdatedAt = new Date();
+    } else {
+      // If quantity is 1, remove the item completely
+      cart.items.splice(itemIndex, 1);
+    }
+
     await cart.save();
     
     // Return the updated cart

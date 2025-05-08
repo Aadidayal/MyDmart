@@ -56,29 +56,13 @@ const AppContent = () => {
     }
   };
 
-  const handleRemoveFromCart = async (productId) => {
+  const handleRemoveFromCart = async (updatedItems) => {
     try {
-      if (!token) {
-        console.error('No authentication token found');
-        return;
-      }
-
-      const response = await axios.delete(`http://localhost:5000/api/cart/remove/${productId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      // Update local state with the updated cart from the backend
-      setCart(response.data.items);
-      
-      // Show success message
-      alert('Item removed from cart successfully!');
+      // Update the cart state with the new items
+      setCart(updatedItems);
     } catch (error) {
-      console.error('Error removing item from cart:', error);
-      if (error.response?.data?.message) {
-        alert(error.response.data.message);
-      } else {
-        alert('Failed to remove item from cart. Please try again.');
-      }
+      console.error('Error updating cart state:', error);
+      alert('Error updating cart. Please try again.');
     }
   };
 

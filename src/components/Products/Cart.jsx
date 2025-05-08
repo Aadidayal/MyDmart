@@ -17,12 +17,30 @@ const Cart = ({ cart, onRemoveFromCart }) => {
         return;
       }
 
-      await axios.delete(`http://localhost:5000/api/cart/remove/${itemId}`, {
+      // Find the item in the cart to get its productId
+      const item = cart.find(item => item._id === itemId);
+      if (!item) {
+        setError('Item not found in cart');
+        return;
+      }
+
+      const response = await axios.delete(`http://localhost:5000/api/cart/remove/${item.productId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      // Call the parent's remove function
-      onRemoveFromCart(itemId);
+      // Update the cart with the response data
+      if (response.data && response.data.items) {
+        // Call the parent's remove function with the updated cart items
+        onRemoveFromCart(response.data.items);
+        
+        // Show appropriate message based on the updated cart
+        const updatedItem = response.data.items.find(i => i.productId === item.productId);
+        if (updatedItem) {
+          alert(`Quantity reduced. Now ${updatedItem.quantity} item(s) in cart.`);
+        } else {
+          alert('Item removed from cart successfully!');
+        }
+      }
     } catch (error) {
       console.error('Error removing item:', error);
       if (error.response) {
