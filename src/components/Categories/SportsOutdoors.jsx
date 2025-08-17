@@ -13,8 +13,18 @@ const sportsProducts = [
 ];
 
 const SportsOutdoors = ({ onAddToCart }) => {
+
   const [sortBy, setSortBy] = useState('default');
-  const sortedProducts = [...sportsProducts];
+  const sortedProducts = [...sportsProducts].sort((a, b) => {
+    switch (sortBy) {
+      case 'price-low':
+        return a.price - b.price;
+      case 'price-high':
+        return b.price - a.price;
+      default:
+        return 0;
+    }
+  });
 
   const handleAddToCart = (product) => {
     onAddToCart(product);

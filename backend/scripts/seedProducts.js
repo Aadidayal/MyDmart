@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 
@@ -59,11 +60,8 @@ const products = [
 const seedDatabase = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect('mongodb://localhost:27017/ecommerce', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-
+  await mongoose.connect(process.env.MONGODB_URI);
+    console.log('Connected to MongoDB');
     // Clear existing data
     await Category.deleteMany({});
     await Product.deleteMany({});

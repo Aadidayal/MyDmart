@@ -14,7 +14,9 @@ const ProductList = ({ onAddToCart }) => {
   const [sortBy, setSortBy] = useState('default');
   const [searchQuery, setSearchQuery] = useState('');
 
+
   useEffect(() => {
+    let intervalId;
     const fetchProducts = async () => {
       try {
         setLoading(true);
@@ -30,6 +32,8 @@ const ProductList = ({ onAddToCart }) => {
     };
 
     fetchProducts();
+    intervalId = setInterval(fetchProducts, 5000); // Poll every 5 seconds
+    return () => clearInterval(intervalId);
   }, [categoryId]);
 
   const handleSearch = (e) => {

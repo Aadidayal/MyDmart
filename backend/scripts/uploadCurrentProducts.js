@@ -64,10 +64,8 @@ const currentProducts = [
 const uploadProducts = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect('mongodb://localhost:27017/ecommerce', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+  require('dotenv').config();
+  await mongoose.connect(process.env.MONGODB_URI);
 
     // Get or create Electronics category
     let category = await Category.findOne({ name: 'Electronics' });
