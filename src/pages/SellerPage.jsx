@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaStore, FaUserTie, FaEnvelope, FaPhone, FaBuilding, FaMapMarkerAlt, FaIdCard, FaBoxes, FaGlobe, FaInfoCircle, FaCheckCircle, FaTruck, FaChartLine, FaHandshake } from 'react-icons/fa';
 import { GiArchiveRegister } from 'react-icons/gi';
 import './SellerPage.css';
 
 const SellerPage = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [form, setForm] = useState({
     businessName: '',
@@ -62,10 +64,21 @@ const SellerPage = () => {
           productCategories: form.productCategories.join(', ')
         })
       });
-      if (!res.ok) throw new Error('Failed to submit request');
-      setSubmitted(true);
+      
+      const data = await res.json();
+      
+      if (!res.ok) throw new Error(data.message || 'Failed to submit request');
+      
+      // Redirect to success page with credentials
+      navigate('/seller/success', {
+        state: {
+          credentials: data.credentials,
+          sellerId: data.sellerId,
+          businessName: form.businessName
+        }
+      });
     } catch (err) {
-      setError('Submission failed. Please try again.');
+      setError(err.message || 'Submission failed. Please try again.');
     } finally {
       setLoading(false);
     }

@@ -1,0 +1,346 @@
+.seller-success-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.seller-success-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.success-header {
+  margin-bottom: 30px;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: bounce 0.8s ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.success-header h1 {
+  color: #2d3748;
+  font-size: 2.5rem;
+  margin: 0 0 15px 0;
+  font-weight: 700;
+}
+
+.success-header p {
+  color: #718096;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.credentials-section {
+  background: #f7fafc;
+  border-radius: 15px;
+  padding: 30px;
+  margin: 30px 0;
+  text-align: left;
+}
+
+.credentials-section h2 {
+  color: #2d3748;
+  font-size: 1.5rem;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.credentials-note {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 15px;
+  color: #856404;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.credential-item {
+  margin-bottom: 20px;
+}
+
+.credential-item label {
+  display: block;
+  color: #4a5568;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.credential-value {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+}
+
+.credential-value span {
+  flex: 1;
+  color: #2d3748;
+  font-weight: 500;
+}
+
+.copy-btn {
+  background: #4299e1;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: #3182ce;
+  transform: scale(1.05);
+}
+
+.next-steps {
+  margin: 30px 0;
+  text-align: left;
+}
+
+.next-steps h3 {
+  color: #2d3748;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.step-number {
+  background: #4299e1;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.step-content strong {
+  color: #2d3748;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+.step-content p {
+  color: #718096;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.login-btn, .home-btn {
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  min-width: 150px;
+}
+
+.login-btn.primary {
+  background: #4299e1;
+  color: white;
+}
+
+.login-btn.primary:hover {
+  background: #3182ce;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+}
+
+.home-btn.secondary {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.home-btn.secondary:hover {
+  background: #cbd5e0;
+  transform: translateY(-2px);
+}
+
+.warning-message {
+  background: #fed7d7;
+  border: 1px solid #fc8181;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.warning-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.warning-message p {
+  margin: 0;
+  color: #742a2a;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.warning-message strong {
+  color: #742a2a;
+}
+
+.access-info {
+  background: #e6fffa;
+  border: 1px solid #81e6d9;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.info-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.info-content h4 {
+  color: #234e52;
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+}
+
+.info-content p {
+  color: #2d5a5e;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .seller-success-card {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .success-header h1 {
+    font-size: 2rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-btn, .home-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .steps-list {
+    gap: 15px;
+  }
+  
+  .step {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .seller-success-container {
+    padding: 10px;
+  }
+  
+  .seller-success-card {
+    padding: 15px;
+  }
+  
+  .credentials-section {
+    padding: 20px;
+  }
+  
+  .success-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .credential-value {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  
+  .copy-btn {
+    margin-left: 0;
+    align-self: center;
+  }
+}

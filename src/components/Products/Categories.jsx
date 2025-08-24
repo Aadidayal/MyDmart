@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+  import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import '../../sec.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,7 +29,6 @@ const Categories = () => {
     { 
       id: 4, 
       name: 'Home & Kitchen', 
-      image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&w=400&q=80', 
       image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&w=400&q=80', 
       description: 'Everything for your home' 
     },
@@ -146,6 +145,75 @@ const Categories = () => {
           </div>
         </div>
       </div>
+
+      {/* Compact Professional Footer */}
+      <footer className="footer-section footer-compact">
+        <div className="container footer-inner">
+          <div className="footer-top">
+            <div className="ft-left">
+              <h3 className="brand">D-Mart</h3>
+              <p className="brand-tag">Everyday low prices, trusted stores.</p>
+            </div>
+
+            <div className="ft-newsletter">
+              <label htmlFor="newsletter" className="nl-label">Subscribe for deals</label>
+              <div className="nl-input">
+                <input id="newsletter" type="email" placeholder="Your email address" />
+                <button className="nl-btn">Subscribe</button>
+              </div>
+              <div className="app-badges">
+                <img src="/assets/app-store-badge.png" alt="App Store" className="badge" />
+                <img src="/assets/play-store-badge.png" alt="Google Play" className="badge" />
+              </div>
+            </div>
+          </div>
+
+          <div className="footer-links">
+            <div className="col">
+              <h4>Sell on D-Mart</h4>
+              <ul>
+                <li><Link to="/seller">Start Selling</Link></li>
+                <li><Link to="/seller/login">Seller Login</Link></li>
+                <li><a href="#policies">Seller Policies</a></li>
+              </ul>
+            </div>
+            <div className="col">
+              <h4>Customer Care</h4>
+              <ul>
+                <li><a href="#help">Help Center</a></li>
+                <li><a href="#returns">Returns</a></li>
+                <li><a href="#shipping">Shipping</a></li>
+              </ul>
+            </div>
+            <div className="col">
+              <h4>Company</h4>
+              <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#careers">Careers</a></li>
+                <li><a href="#press">Press</a></li>
+              </ul>
+            </div>
+            <div className="col pay-col">
+              <h4>We accept</h4>
+              <div className="payments">
+                <img src="/assets/payments/visa.png" alt="Visa" />
+                <img src="/assets/payments/mastercard.png" alt="Mastercard" />
+                <img src="/assets/payments/rupee.png" alt="UPI" />
+                <img src="/assets/payments/netbanking.png" alt="Netbanking" />
+              </div>
+            </div>
+          </div>
+
+          <div className="footer-bottom compact">
+            <div className="fb-left">© 2025 D-Mart Pvt Ltd. All rights reserved.</div>
+            <div className="fb-right">
+              <a href="#terms">Terms</a>
+              <span>•</span>
+              <a href="#privacy">Privacy</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

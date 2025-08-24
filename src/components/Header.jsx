@@ -27,7 +27,12 @@ const Header = ({ cartCount, isLoggedIn, onLoginClick, onLogoutClick }) => {
           <Link to="/category/6" className="nav-link">Sports & Outdoors</Link>
         </nav>
         <div className="header-actions" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <Link to="/seller" className="seller-btn" style={{ background: '#f0c14b', color: '#111', padding: '8px 16px', borderRadius: '4px', textDecoration: 'none', fontWeight: 500 }}>Seller</Link>
+          <Link to="/seller" className="seller-btn" style={{ background: '#f0c14b', color: '#111', padding: '8px 16px', borderRadius: '4px', textDecoration: 'none', fontWeight: 500 }}>
+            Become Seller
+          </Link>
+          <Link to="/seller/login" className="seller-login-btn" style={{ background: '#232f3e', color: '#fff', padding: '8px 16px', borderRadius: '4px', textDecoration: 'none', fontWeight: 500, border: '1px solid #f0c14b' }}>
+            Seller Login
+          </Link>
           {isLoggedIn ? (
             <button onClick={onLogoutClick} className="auth-button">
               Logout

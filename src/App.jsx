@@ -19,6 +19,9 @@ const HomeKitchen = lazy(() => import('./components/Categories/HomeKitchen'));
 const BeautyCare = lazy(() => import('./components/Categories/BeautyCare'));
 const SportsOutdoors = lazy(() => import('./components/Categories/SportsOutdoors'));
 const SellerPage = lazy(() => import('./pages/SellerPage'));
+const SellerSuccess = lazy(() => import('./components/Seller/SellerSuccess'));
+const SellerLogin = lazy(() => import('./components/Seller/SellerLogin'));
+const SellerDashboard = lazy(() => import('./components/Seller/SellerDashboard'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -171,6 +174,21 @@ const AppContent = () => {
         <Route path="/seller" element={
           <Suspense fallback={<LoadingSpinner />}>
             <SellerPage />
+          </Suspense>
+        } />
+        <Route path="/seller/success" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <SellerSuccess />
+          </Suspense>
+        } />
+        <Route path="/seller/login" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <SellerLogin />
+          </Suspense>
+        } />
+        <Route path="/seller/dashboard" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <SellerDashboard />
           </Suspense>
         } />
       </Routes>

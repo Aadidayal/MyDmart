@@ -13,8 +13,68 @@ const SellerRequestSchema = new mongoose.Schema({
   description: { type: String },
   website: { type: String },
   agree: { type: Boolean, required: true },
-  status: { type: String, default: 'pending' },
-  createdAt: { type: Date, default: Date.now }
+  
+  // Seller Credentials and Status
+  sellerCredentials: {
+    username: {
+      type: String,
+      unique: true,
+      sparse: true
+    },
+    password: {
+      type: String
+    },
+    sellerId: {
+      type: String,
+      unique: true,
+      sparse: true
+    }
+  },
+
+  // Request Status
+  status: { 
+    type: String, 
+    enum: ['pending', 'under_review', 'approved', 'rejected'],
+    default: 'pending' 
+  },
+
+  // Admin Review
+  adminComments: {
+    type: String,
+    default: ''
+  },
+  reviewedBy: {
+    type: String,
+    default: ''
+  },
+  reviewedAt: {
+    type: Date
+  },
+
+  createdAt: { type: Date, default: Date.now },
+  lastStatusUpdate: { type: Date, default: Date.now }
 });
+
+// Generate seller credentials before saving
+SellerRequestSchema.pre('save', function(next) {
+  if (this.isNew && !this.sellerCredentials.username) {
+    const timestamp = Date.now().toString().slice(-6);
+    const businessInitials = this.businessName.substring(0, 3).toUpperCase();
+    this.sellerCredentials.username = `SELL${businessInitials}${timestamp}`;
+    this.sellerCredentials.password = this.generatePassword();
+    this.sellerCredentials.sellerId = `DMT${timestamp}${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+  }
+  next();
+});
+
+// Method to generate random password
+SellerRequestSchema.methods.generatePassword = function() {
+  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+  let password = '';
+  for (let i = 0; i < 8; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return password;
+};
 
 module.exports = mongoose.model('SellerRequest', SellerRequestSchema);
