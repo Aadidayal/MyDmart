@@ -22,6 +22,7 @@ const SellerPage = lazy(() => import('./pages/SellerPage'));
 const SellerSuccess = lazy(() => import('./components/Seller/SellerSuccess'));
 const SellerLogin = lazy(() => import('./components/Seller/SellerLogin'));
 const SellerDashboard = lazy(() => import('./components/Seller/SellerDashboard'));
+const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -40,7 +41,7 @@ const LoadingSpinner = () => (
 const AppContent = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [cart, setCart] = useState([]);
-  const { isAuthenticated, logout, token } = useAuth();
+  const { isAuthenticated, logout, token, isAdmin } = useAuth();
 
   const handleAddToCart = async (product) => {
     if (!isAuthenticated) {
@@ -132,7 +133,20 @@ const AppContent = () => {
       />
 
       <Routes>
-        <Route path="/" element={<Categories />} />
+        <Route path="/" element={
+          isAdmin ? (
+            <Suspense fallback={<LoadingSpinner />}>
+              <AdminDashboard />
+            </Suspense>
+          ) : (
+            <Categories />
+          )
+        } />
+        <Route path="/admin" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <AdminDashboard />
+          </Suspense>
+        } />
         <Route path="/category/1" element={
           <Suspense fallback={<LoadingSpinner />}>
             <Groceries onAddToCart={handleAddToCart} />

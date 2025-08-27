@@ -14,15 +14,7 @@ const BeautyCare = ({ onAddToCart }) => {
       imageUrl: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3',
       category: 'BeautyCare'
     },
-       { 
-      _id: '1', 
-      name: 'Vitamin C Serum', 
-      price: 999, 
-      originalPrice: 1499, 
-      discount: 33, 
-      imageUrl: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3',
-      category: 'BeautyCare'
-    },
+
     { 
       _id: '2', 
       name: 'Hyaluronic Acid Moisturizer', 

@@ -15,16 +15,6 @@ app.use(bodyParser.json());
 app.use(express.json({ strict: false })); // Allow loose JSON parsing
 
 
-// Helper function to read data from a JSON file
-// const readData = (filePath) => {
-//     try {
-//         const data = fs.readFileSync(filePath, "utf8").trim();
-//         return data ? JSON.parse(data) : []; // If empty, return []
-//     } catch (error) {
-//         console.error(`Error reading ${filePath}:`, error.message);
-//         return []; // Return empty array on error
-//     }
-// };
 const safeReadData = (filePath) => {
     try {
         let data = fs.readFileSync(filePath, "utf8").trim();
@@ -47,28 +37,7 @@ const writeData = (filePath, data) => {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
 };
 
-// Routes
 
-// ✅ Get all food items
-
-
-// app.get("/api/orders/:userId", (req, res) => {
-//     console.log("Received request for orders:", req.params.userId);
-
-//     const orders = safeReadData("./data/orders.json");
-//     console.log("Orders from file:", orders); // Log the orders.json content
-
-//     // Check if orders exist for this user
-//     const userOrders = orders.filter((order) => order.userId === req.params.userId);
-    
-//     console.log("Filtered user orders:", userOrders); // Log filtered orders
-
-//     if (userOrders.length === 0) {
-//         return res.status(404).json({ message: "No orders found for this user" });
-//     }
-
-//     res.json(userOrders);
-// });
 app.get("/api/orders/:userId", (req, res) => {
     const userId = req.params.userId;
     console.log(`Received request for user orders: ${userId}`);
@@ -102,7 +71,7 @@ app.post("/api/register", (req, res) => {
 
     const newUser = { id: crypto.randomUUID(), username, email, password };
     users.push(newUser);
-    writeData("./data/users.json", users);
+    writeData("./data/users.json",  users);
 
     res.status(201).json({ message: "User registered successfully", user: newUser });
 });
