@@ -2,45 +2,31 @@ const mongoose = require('mongoose');
 
 const SellerProductSchema = new mongoose.Schema({
   // Product Basic Information
-  productName: { type: String, required: true },
+  name: { type: String, required: true },
   description: { type: String, required: true },
   category: { 
     type: String, 
-    required: true,
-    enum: ['electronics', 'clothing', 'home_kitchen', 'beauty_care', 'sports_outdoors', 'books', 'groceries']
+    required: true
   },
   subcategory: { type: String },
-  brand: { type: String, required: true },
-  model: { type: String },
+  brand: { type: String },
 
   // Pricing and Inventory
   price: { type: Number, required: true },
-  costPrice: { type: Number, required: true },
-  discount: { type: Number, default: 0 },
-  stock: { type: Number, required: true },
-  minStock: { type: Number, default: 5 },
-
-  // Product Details
-  specifications: [{
-    name: String,
-    value: String
-  }],
-  features: [String],
-  dimensions: {
-    length: Number,
-    width: Number,
-    height: Number,
-    weight: Number,
-    unit: { type: String, default: 'cm' }
+  originalPrice: { type: Number },
+  discount: { 
+    type: Number, 
+    default: function() {
+      if (this.originalPrice && this.originalPrice > this.price) {
+        return Math.round(((this.originalPrice - this.price) / this.originalPrice) * 100);
+      }
+      return 0;
+    }
   },
+  stock: { type: Number, required: true },
 
-  // Images and Media
-  images: [{
-    url: String,
-    isMain: { type: Boolean, default: false },
-    alt: String
-  }],
-  videos: [String],
+  // Images - Simple array of URLs to match frontend
+  images: [{ type: String }],
 
   // Seller Information
   sellerId: { type: String, required: true },
@@ -49,7 +35,7 @@ const SellerProductSchema = new mongoose.Schema({
   // Product Status
   status: {
     type: String,
-    enum: ['pending', 'approved', 'rejected', 'active', 'inactive'],
+    enum: ['pending', 'approved', 'rejected'],
     default: 'pending'
   },
   
@@ -58,28 +44,31 @@ const SellerProductSchema = new mongoose.Schema({
   reviewedBy: { type: String, default: '' },
   reviewedAt: { type: Date },
 
-  // SEO and Marketing
-  tags: [String],
-  seoTitle: String,
-  seoDescription: String,
-
-  // Shipping
-  shippingInfo: {
-    weight: Number,
-    dimensions: {
-      length: Number,
-      width: Number,
-      height: Number
-    },
-    freeShipping: { type: Boolean, default: false },
-    shippingCharge: { type: Number, default: 0 }
+  // For compatibility with main product structure
+  imageUrl: { 
+    type: String,
+    default: function() {
+      return this.images && this.images.length > 0 ? this.images[0] : '';
+    }
   },
-
-  // Analytics
-  views: { type: Number, default: 0 },
-  orders: { type: Number, default: 0 },
   rating: { type: Number, default: 0 },
   reviews: { type: Number, default: 0 },
+
+  // Map category to categoryId for compatibility
+  categoryId: {
+    type: String,
+    default: function() {
+      const categoryMap = {
+        'Groceries': '1',
+        'Electronics': '2', 
+        'Clothing': '3',
+        'Home & Kitchen': '4',
+        'Beauty & Personal Care': '5',
+        'Sports & Outdoors': '6'
+      };
+      return categoryMap[this.category] || '1';
+    }
+  },
 
   // Timestamps
   createdAt: { type: Date, default: Date.now },
@@ -90,6 +79,28 @@ const SellerProductSchema = new mongoose.Schema({
 // Update the updatedAt field before saving
 SellerProductSchema.pre('save', function(next) {
   this.updatedAt = new Date();
+  
+  // Set imageUrl to first image if not set
+  if (this.images && this.images.length > 0 && !this.imageUrl) {
+    this.imageUrl = this.images[0];
+  }
+  
+  // Calculate discount if originalPrice is provided
+  if (this.originalPrice && this.originalPrice > this.price) {
+    this.discount = Math.round(((this.originalPrice - this.price) / this.originalPrice) * 100);
+  }
+  
+  // Set categoryId based on category
+  const categoryMap = {
+    'Groceries': '1',
+    'Electronics': '2', 
+    'Clothing': '3',
+    'Home & Kitchen': '4',
+    'Beauty & Personal Care': '5',
+    'Sports & Outdoors': '6'
+  };
+  this.categoryId = categoryMap[this.category] || '1';
+  
   next();
 });
 

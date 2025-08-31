@@ -87,7 +87,7 @@ exports.getSellerStatus = async (req, res) => {
 // POST /api/seller/product
 exports.addProduct = async (req, res) => {
   try {
-    const { sellerId } = req.body;
+    const { sellerId, name, description, category, subcategory, price, originalPrice, stock, brand, images } = req.body;
     
     // Check if seller is approved
     const seller = await SellerRequest.findOne({
@@ -99,18 +99,36 @@ exports.addProduct = async (req, res) => {
       return res.status(403).json({ message: 'Seller not approved or not found' });
     }
 
+    // Create product with seller information
     const productData = {
-      ...req.body,
-      sellerName: seller.businessName
+      name,
+      description,
+      category,
+      subcategory,
+      price: parseFloat(price),
+      originalPrice: originalPrice ? parseFloat(originalPrice) : null,
+      stock: parseInt(stock),
+      brand,
+      images: images || [],
+      sellerId,
+      sellerName: seller.businessName,
+      status: 'pending' // Products need approval before going live
     };
 
     const product = new SellerProduct(productData);
     await product.save();
 
     res.status(201).json({
-      message: 'Product added successfully',
-      productId: product._id,
-      status: product.status
+      message: 'Product added successfully and is pending review',
+      product: {
+        _id: product._id,
+        name: product.name,
+        category: product.category,
+        price: product.price,
+        stock: product.stock,
+        status: product.status,
+        images: product.images
+      }
     });
   } catch (error) {
     console.error('Error adding product:', error);

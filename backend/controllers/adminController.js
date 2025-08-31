@@ -1,4 +1,5 @@
 const SellerRequest = require('../models/SellerRequest');
+const SellerProduct = require('../models/SellerProduct');
 const User = require('../models/User');
 
 // Get all seller requests (Admin only)
@@ -150,10 +151,102 @@ const makeUserAdmin = async (req, res) => {
   }
 };
 
+// Get all seller products for admin review
+const getAllSellerProducts = async (req, res) => {
+  try {
+    // Check if user is admin
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied. Admin only.' });
+    }
+
+    const products = await SellerProduct.find().sort({ createdAt: -1 });
+    res.json({ products });
+  } catch (error) {
+    console.error('Get seller products error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Approve seller product
+const approveSellerProduct = async (req, res) => {
+  try {
+    // Check if user is admin
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied. Admin only.' });
+    }
+
+    const { productId } = req.params;
+    
+    const product = await SellerProduct.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    if (product.status === 'approved') {
+      return res.status(400).json({ message: 'Product already approved' });
+    }
+
+    // Update product status
+    product.status = 'approved';
+    product.approvedAt = new Date();
+    product.reviewedBy = req.user.email;
+    product.reviewedAt = new Date();
+    await product.save();
+
+    res.json({ 
+      message: 'Product approved successfully',
+      product 
+    });
+  } catch (error) {
+    console.error('Approve product error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Reject seller product
+const rejectSellerProduct = async (req, res) => {
+  try {
+    // Check if user is admin
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied. Admin only.' });
+    }
+
+    const { productId } = req.params;
+    const { reason } = req.body;
+    
+    const product = await SellerProduct.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    if (product.status === 'rejected') {
+      return res.status(400).json({ message: 'Product already rejected' });
+    }
+
+    // Update product status
+    product.status = 'rejected';
+    product.adminComments = reason || 'No reason provided';
+    product.reviewedBy = req.user.email;
+    product.reviewedAt = new Date();
+    await product.save();
+
+    res.json({ 
+      message: 'Product rejected successfully',
+      product 
+    });
+  } catch (error) {
+    console.error('Reject product error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   getAllSellerRequests,
   approveSellerRequest,
   rejectSellerRequest,
   getAdminStats,
-  makeUserAdmin
+  makeUserAdmin,
+  getAllSellerProducts,
+  approveSellerProduct,
+  rejectSellerProduct
 };
