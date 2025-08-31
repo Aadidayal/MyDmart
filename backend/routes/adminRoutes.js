@@ -6,7 +6,10 @@ const {
   approveSellerRequest,
   rejectSellerRequest,
   getAdminStats,
-  makeUserAdmin
+  makeUserAdmin,
+  getAllSellerProducts,
+  approveSellerProduct,
+  rejectSellerProduct
 } = require('../controllers/adminController');
 
 // Debug route to check user info
@@ -29,6 +32,11 @@ router.put('/seller-requests/:requestId/reject', auth, rejectSellerRequest);
 
 // Get admin dashboard stats
 router.get('/stats', auth, getAdminStats);
+
+// Product management routes
+router.get('/products', auth, getAllSellerProducts);
+router.put('/products/:productId/approve', auth, approveSellerProduct);
+router.put('/products/:productId/reject', auth, rejectSellerProduct);
 
 // Make user admin (Development route - remove in production)
 router.post('/make-admin', makeUserAdmin);

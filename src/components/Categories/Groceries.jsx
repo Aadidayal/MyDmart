@@ -1,65 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Groceries.css';
 
 const Groceries = ({ onAddToCart }) => {
   const [sortBy, setSortBy] = useState('default');
-  
-  const groceriesProducts = [
-    { 
-      _id: '1', 
-      name: 'Fresh Apples (1kg)', 
-      price: 199, 
-      originalPrice: 249, 
-      discount: 20, 
-      imageUrl: 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?ixlib=rb-4.0.3',
-      category: 'Groceries'
-    },
-    { 
-      _id: '2', 
-      name: 'Organic Milk (1L)', 
-      price: 99, 
-      originalPrice: 129, 
-      discount: 23, 
-      imageUrl: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-4.0.3',
-      category: 'Groceries'
-    },
-    { 
-      _id: '3', 
-      name: 'Whole Wheat Bread', 
-      price: 45, 
-      originalPrice: 60, 
-      discount: 25, 
-      imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3',
-      category: 'Groceries'
-    },
-    { 
-      _id: '4', 
-      name: 'Fresh Eggs (12)', 
-      price: 89, 
-      originalPrice: 99, 
-      discount: 10, 
-      imageUrl: 'https://images.unsplash.com/photo-1587486913049-53fc88980cfc?ixlib=rb-4.0.3',
-      category: 'Groceries'
-    },
-    { 
-      _id: '5', 
-      name: 'Basmati Rice (1kg)', 
-      price: 129, 
-      originalPrice: 149, 
-      discount: 13, 
-      imageUrl: 'https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?ixlib=rb-4.0.3',
-      category: 'Groceries'
-    },
-    { 
-      _id: '6', 
-      name: 'Extra Virgin Olive Oil', 
-      price: 399, 
-      originalPrice: 499, 
-      discount: 20, 
-      imageUrl: 'https://images.unsplash.com/photo-1594282406314-6312a4bf6a1b?ixlib=rb-4.0.3',
-      category: 'Groceries'
-    }
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchGroceriesProducts = async () => {
+      try {
+        setLoading(true);
+        // Use the actual Groceries category ObjectId from the database
+        const response = await axios.get('http://localhost:5000/api/products/category/68a21c83d7f0c3f3ef738b09');
+        setProducts(response.data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to fetch groceries products');
+        console.error('Error fetching groceries products:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGroceriesProducts();
+  }, []);
 
   const handleAddToCart = (product) => {
     onAddToCart({
@@ -71,7 +37,7 @@ const Groceries = ({ onAddToCart }) => {
     });
   };
 
-  const sortedProducts = [...groceriesProducts].sort((a, b) => {
+  const sortedProducts = [...products].sort((a, b) => {
     switch (sortBy) {
       case 'price-low':
         return a.price - b.price;
@@ -81,6 +47,14 @@ const Groceries = ({ onAddToCart }) => {
         return 0;
     }
   });
+
+  if (loading) {
+    return <div className="groceries-loading">Loading groceries products...</div>;
+  }
+
+  if (error) {
+    return <div className="groceries-error">{error}</div>;
+  }
 
   return (
     <div className="groceries-category-page">
@@ -94,14 +68,29 @@ const Groceries = ({ onAddToCart }) => {
       </div>
       <h2 className="category-title">Groceries</h2>
       <div className="groceries-grid">
-        {sortedProducts.map(product => (
+        {sortedProducts.map(product => {
+          // Ensure product has required fields
+          if (!product || !product._id) {
+            console.warn('Invalid product data:', product);
+            return null;
+          }
+          
+          return (
           <div key={product._id} className="groceries-card">
-            <img src={product.imageUrl} alt={product.name} className="groceries-image" />
-            <h3 className="groceries-name">{product.name}</h3>
+            <img 
+              src={product.imageUrl || product.images?.[0] || 'https://via.placeholder.com/300x300?text=No+Image'} 
+              alt={product.name || 'Product'} 
+              className="groceries-image" 
+            />
+            <h3 className="groceries-name">{product.name || 'Unknown Product'}</h3>
             <div className="groceries-price-row">
-              <span className="groceries-price">₹{product.price}</span>
-              <span className="groceries-original-price">₹{product.originalPrice}</span>
-              <span className="groceries-discount">{product.discount}% off</span>
+              <span className="groceries-price">₹{product.price || 0}</span>
+              {product.originalPrice && product.originalPrice !== product.price && (
+                <span className="groceries-original-price">₹{product.originalPrice}</span>
+              )}
+              {product.discount && product.discount > 0 && (
+                <span className="groceries-discount">{Math.round(product.discount)}% off</span>
+              )}
             </div>
             <button 
               className="groceries-btn"
@@ -110,7 +99,8 @@ const Groceries = ({ onAddToCart }) => {
               Add to Cart
             </button>
           </div>
-        ))}
+          );
+        }).filter(Boolean)}
       </div>
     </div>
   );

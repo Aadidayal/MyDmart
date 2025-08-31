@@ -1,65 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Electronics.css';
 
 const Electronics = ({ onAddToCart }) => {
   const [sortBy, setSortBy] = useState('default');
-  
-  const electronicsProducts = [
-    {
-      _id: '1',
-      name: 'Wireless Noise Cancelling Headphones',
-      price: 4999,
-      originalPrice: 7999,
-      discount: 38,
-      imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3',
-      category: 'Electronics'
-    },
-    {
-      _id: '2',
-      name: 'Smart Watch with Health Tracking',
-      price: 3999,
-      originalPrice: 5999,
-      discount: 33,
-      imageUrl: 'https://images.unsplash.com/photo-1545579133-99bb5ab189bd?ixlib=rb-4.0.3',
-      category: 'Electronics'
-    },
-    {
-      _id: '3',
-      name: 'Portable Bluetooth Speaker',
-      price: 1999,
-      originalPrice: 2999,
-      discount: 33,
-      imageUrl: 'https://images.unsplash.com/photo-1606220588911-5117e7648a6a?ixlib=rb-4.0.3',
-      category: 'Electronics'
-    },
-    {
-      _id: '4',
-      name: 'Wireless Earbuds Pro',
-      price: 2999,
-      originalPrice: 4499,
-      discount: 33,
-      imageUrl: 'https://images.unsplash.com/photo-1606220588911-5117e7648a6a?ixlib=rb-4.0.3',
-      category: 'Electronics'
-    },
-    {
-      _id: '5',
-      name: 'Tablet with Stylus',
-      price: 12999,
-      originalPrice: 15999,
-      discount: 19,
-      imageUrl: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?ixlib=rb-4.0.3',
-      category: 'Electronics'
-    },
-    {
-      _id: '6',
-      name: 'Smartphone',
-      price: 24999,
-      originalPrice: 29999,
-      discount: 17,
-      imageUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3',
-      category: 'Electronics'
-    }
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchElectronicsProducts = async () => {
+      try {
+        setLoading(true);
+        // Use the actual Electronics category ObjectId from the database
+        const response = await axios.get('http://localhost:5000/api/products/category/68a217ef46a3642ac769d992');
+        setProducts(response.data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to fetch electronics products');
+        console.error('Error fetching electronics products:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchElectronicsProducts();
+  }, []);
 
   const handleAddToCart = (product) => {
     onAddToCart({
@@ -71,7 +37,7 @@ const Electronics = ({ onAddToCart }) => {
     });
   };
 
-  const sortedProducts = [...electronicsProducts].sort((a, b) => {
+  const sortedProducts = [...products].sort((a, b) => {
     switch (sortBy) {
       case 'price-low':
         return a.price - b.price;
@@ -81,6 +47,14 @@ const Electronics = ({ onAddToCart }) => {
         return 0;
     }
   });
+
+  if (loading) {
+    return <div className="electronics-loading">Loading electronics products...</div>;
+  }
+
+  if (error) {
+    return <div className="electronics-error">{error}</div>;
+  }
 
   return (
     <div className="electronics-category-page">

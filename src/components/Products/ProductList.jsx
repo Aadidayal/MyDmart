@@ -16,11 +16,14 @@ const ProductList = ({ onAddToCart }) => {
 
 
   useEffect(() => {
-    let intervalId;
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:5000/api/products${categoryId ? `?category=${categoryId}` : ''}`);
+        let url = 'http://localhost:5000/api/products';
+        if (categoryId) {
+          url = `http://localhost:5000/api/products/category/${categoryId}`;
+        }
+        const response = await axios.get(url);
         setProducts(response.data);
         setError(null);
       } catch (err) {
@@ -32,8 +35,6 @@ const ProductList = ({ onAddToCart }) => {
     };
 
     fetchProducts();
-    intervalId = setInterval(fetchProducts, 5000); // Poll every 5 seconds
-    return () => clearInterval(intervalId);
   }, [categoryId]);
 
   const handleSearch = (e) => {
