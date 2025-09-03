@@ -40,7 +40,7 @@ exports.getProductsByCategory = async (req, res) => {
       // Create a mapping of categoryId to category name
       const categoryMapping = {
         '68a217ef46a3642ac769d992': 'Electronics',
-        '68a217ef46a3642ac769d993': 'Clothing', 
+        '68a217ef46a3642ac769d993': 'Clothing',  // Keep this even though no regular products exist
         '68a217ef46a3642ac769d994': 'Home & Kitchen',
         '68a2191dcf33d9406791539e': 'Beauty & Personal Care',
         '68a21c83d7f0c3f3ef738b09': 'Groceries',
@@ -48,11 +48,13 @@ exports.getProductsByCategory = async (req, res) => {
       };
       
       const categoryName = categoryMapping[category];
+      console.log('Looking for categoryName:', categoryName, 'from categoryId:', category);
       if (categoryName) {
         sellerProducts = await SellerProduct.find({ 
           category: categoryName, 
           status: 'approved' 
         });
+        console.log('Query:', { category: categoryName, status: 'approved' });
       }
       console.log('Seller products found:', sellerProducts.length);
     } catch (sellerErr) {

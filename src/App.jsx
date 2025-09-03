@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import SignupForm from './components/SignupForm';
@@ -11,18 +11,18 @@ import AuthModal from './components/Auth/AuthModal';
 import './App.css';
 import axios from 'axios';
 
-// Lazy load components for better performance
-const Electronics = lazy(() => import('./components/Categories/Electronics'));
-const Groceries = lazy(() => import('./components/Categories/Groceries'));
-const Clothing = lazy(() => import('./components/Categories/Clothing'));
-const HomeKitchen = lazy(() => import('./components/Categories/HomeKitchen'));
-const BeautyCare = lazy(() => import('./components/Categories/BeautyCare'));
-const SportsOutdoors = lazy(() => import('./components/Categories/SportsOutdoors'));
-const SellerPage = lazy(() => import('./pages/SellerPage'));
-const SellerSuccess = lazy(() => import('./components/Seller/SellerSuccess'));
-const SellerLogin = lazy(() => import('./components/Seller/SellerLogin'));
-const SellerDashboard = lazy(() => import('./components/Seller/SellerDashboard'));
-const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard'));
+// Import components directly to avoid lazy loading issues
+import Electronics from './components/Categories/Electronics';
+import Groceries from './components/Categories/Groceries';
+import Clothing from './components/Categories/Clothing';
+import HomeKitchen from './components/Categories/HomeKitchen';
+import BeautyCare from './components/Categories/BeautyCare';
+import SportsOutdoors from './components/Categories/SportsOutdoors';
+import SellerPage from './pages/SellerPage';
+import SellerSuccess from './components/Seller/SellerSuccess';
+import SellerLogin from './components/Seller/SellerLogin';
+import SellerDashboard from './components/Seller/SellerDashboard';
+import AdminDashboard from './components/Admin/AdminDashboard';
 
 // Loading component
 const LoadingSpinner = () => (
@@ -135,47 +135,31 @@ const AppContent = () => {
       <Routes>
         <Route path="/" element={
           isAdmin ? (
-            <Suspense fallback={<LoadingSpinner />}>
-              <AdminDashboard />
-            </Suspense>
+            <AdminDashboard />
           ) : (
             <Categories />
           )
         } />
         <Route path="/admin" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <AdminDashboard />
-          </Suspense>
+          <AdminDashboard />
         } />
         <Route path="/category/1" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <Groceries onAddToCart={handleAddToCart} />
-          </Suspense>
+          <Groceries onAddToCart={handleAddToCart} />
         } />
         <Route path="/category/2" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <Electronics onAddToCart={handleAddToCart} />
-          </Suspense>
+          <Electronics onAddToCart={handleAddToCart} />
         } />
         <Route path="/category/3" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <Clothing onAddToCart={handleAddToCart} />
-          </Suspense>
+          <Clothing onAddToCart={handleAddToCart} />
         } />
         <Route path="/category/4" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <HomeKitchen onAddToCart={handleAddToCart} />
-          </Suspense>
+          <HomeKitchen onAddToCart={handleAddToCart} />
         } />
         <Route path="/category/5" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <BeautyCare onAddToCart={handleAddToCart} />
-          </Suspense>
+          <BeautyCare onAddToCart={handleAddToCart} />
         } />
         <Route path="/category/6" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <SportsOutdoors onAddToCart={handleAddToCart} />
-          </Suspense>
+          <SportsOutdoors onAddToCart={handleAddToCart} />
         } />
         <Route 
           path="/category/:categoryId" 
@@ -186,24 +170,16 @@ const AppContent = () => {
           element={<Cart cart={cart} onRemoveFromCart={handleRemoveFromCart} />} 
         />
         <Route path="/seller" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <SellerPage />
-          </Suspense>
+          <SellerPage />
         } />
         <Route path="/seller/success" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <SellerSuccess />
-          </Suspense>
+          <SellerSuccess />
         } />
         <Route path="/seller/login" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <SellerLogin />
-          </Suspense>
+          <SellerLogin />
         } />
         <Route path="/seller/dashboard" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <SellerDashboard />
-          </Suspense>
+          <SellerDashboard />
         } />
       </Routes>
     </>
