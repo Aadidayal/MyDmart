@@ -162,8 +162,7 @@ const Categories = () => {
                 <button className="nl-btn">Subscribe</button>
               </div>
               <div className="app-badges">
-                <img src="/assets/app-store-badge.png" alt="App Store" className="badge" />
-                <img src="/assets/play-store-badge.png" alt="Google Play" className="badge" />
+                <span>📱 Get our App</span>
               </div>
             </div>
           </div>
@@ -196,10 +195,10 @@ const Categories = () => {
             <div className="col pay-col">
               <h4>We accept</h4>
               <div className="payments">
-                <img src="/assets/payments/visa.png" alt="Visa" />
-                <img src="/assets/payments/mastercard.png" alt="Mastercard" />
-                <img src="/assets/payments/rupee.png" alt="UPI" />
-                <img src="/assets/payments/netbanking.png" alt="Netbanking" />
+                <span>💳 Visa</span>
+                <span>💳 Mastercard</span>
+                <span>📱 UPI</span>
+                <span>🏦 Net Banking</span>
               </div>
             </div>
           </div>
