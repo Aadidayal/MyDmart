@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const path = require('path');
 
 const sellerRoutes = require('./routes/sellerRoutes');
 const adminRoutes = require('./routes/adminRoutes');
@@ -13,20 +14,35 @@ const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const User = require('./models/User');
 
-dotenv.config();
+// Configure dotenv with proper path
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 // MongoDB Connection
-console.log('MONGODB_URI:', process.env.MONGODB_URI); // Debug log
-mongoose.connect(process.env.MONGODB_URI)
+console.log('Environment check:');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
+console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
+
+if (!process.env.MONGODB_URI) {
+  console.error('MONGODB_URI is not set in environment variables');
+}
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/fallback')
   .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    // Don't exit in serverless environment
+    if (process.env.NODE_ENV !== 'production') {
+      process.exit(1);
+    }
+  });
 
 // JWT Secret
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
+const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key_fallback';
 
 // Middleware to verify JWT
 const authenticateToken = (req, res, next) => {
