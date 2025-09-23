@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../config/api';
 import './Cart.css';
 
 const Cart = () => {
@@ -20,7 +21,7 @@ const Cart = () => {
         return;
       }
 
-      const response = await axios.get('http://localhost:5000/api/cart', {
+      const response = await axios.get(`${API_URL}/cart`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCartItems(response.data.items);
@@ -41,7 +42,7 @@ const Cart = () => {
       }
 
       console.log('Removing item with productId:', productId);
-      const response = await axios.delete(`http://localhost:5000/api/cart/remove/${productId}`, {
+      const response = await axios.delete(`${API_URL}/cart/remove/${productId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log('Remove response:', response);

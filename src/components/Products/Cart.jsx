@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from '../../config/api';
 import '../../sec.css';
 
-const Cart = ({ cart, onRemoveFromCart }) => {
+const Cart = ({ user, setCart, cart }) => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,7 +25,7 @@ const Cart = ({ cart, onRemoveFromCart }) => {
         return;
       }
 
-      const response = await axios.delete(`http://localhost:5000/api/cart/remove/${item.productId}`, {
+      const response = await axios.delete(`${API_URL}/cart/remove/${item.productId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

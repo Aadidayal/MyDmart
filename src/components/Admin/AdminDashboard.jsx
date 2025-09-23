@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { API_URL } from '../../config/api';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -26,7 +27,7 @@ const AdminDashboard = () => {
   const fetchStats = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/admin/stats', {
+      const response = await fetch('${API_URL}/admin/stats', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -47,7 +48,7 @@ const AdminDashboard = () => {
   const fetchSellerRequests = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/admin/seller-requests', {
+      const response = await fetch('${API_URL}/admin/seller-requests', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -68,7 +69,7 @@ const AdminDashboard = () => {
   const fetchSellerProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/admin/products', {
+      const response = await fetch('${API_URL}/admin/products', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -89,7 +90,7 @@ const AdminDashboard = () => {
 
   const handleApproveProduct = async (productId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/products/${productId}/approve`, {
+      const response = await fetch(`${API_URL}/admin/products/${productId}/approve`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -115,7 +116,7 @@ const AdminDashboard = () => {
     if (!reason) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/products/${productId}/reject`, {
+      const response = await fetch(`${API_URL}/admin/products/${productId}/reject`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -168,7 +169,7 @@ const AdminDashboard = () => {
 
   const handleApproveRequest = async (requestId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/seller-requests/${requestId}/approve`, {
+      const response = await fetch(`${API_URL}/admin/seller-requests/${requestId}/approve`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -194,7 +195,7 @@ const AdminDashboard = () => {
     if (!reason) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/seller-requests/${requestId}/reject`, {
+      const response = await fetch(`${API_URL}/admin/seller-requests/${requestId}/reject`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

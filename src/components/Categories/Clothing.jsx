@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../config/api';
 import './Clothing.css';
 
 const Clothing = ({ onAddToCart }) => {
@@ -13,7 +14,7 @@ const Clothing = ({ onAddToCart }) => {
       try {
         setLoading(true);
         // Use the actual Clothing category ObjectId from the database
-        const response = await axios.get('http://localhost:5000/api/products/category/68a217ef46a3642ac769d993');
+        const response = await axios.get(`${API_URL}/products/category/68a217ef46a3642ac769d993`);
         setProducts(response.data);
         setError(null);
       } catch (err) {

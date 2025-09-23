@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { API_URL } from '../../config/api';
 import './SellerDashboard.css';
 
 const SellerDashboard = () => {
@@ -26,7 +27,7 @@ const SellerDashboard = () => {
 
   const fetchSellerProducts = async (sellerId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/seller/products/${sellerId}`);
+      const response = await fetch(`${API_URL}/seller/products/${sellerId}`);
       if (response.ok) {
         const data = await response.json();
         setProducts(data.products);
@@ -328,7 +329,7 @@ const UploadTab = ({ seller, onUpload }) => {
         stock: parseInt(formData.stock)
       };
 
-      const response = await fetch('http://localhost:5000/api/seller/product', {
+      const response = await fetch(`${API_URL}/seller/product`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

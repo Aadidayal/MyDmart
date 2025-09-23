@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaStore, FaUserTie, FaEnvelope, FaPhone, FaBuilding, FaMapMarkerAlt, FaIdCard, FaBoxes, FaGlobe, FaInfoCircle, FaCheckCircle, FaTruck, FaChartLine, FaHandshake } from 'react-icons/fa';
 import { GiArchiveRegister } from 'react-icons/gi';
+import { API_URL } from '../config/api';
 import './SellerPage.css';
 
 const SellerPage = () => {
@@ -56,7 +57,7 @@ const SellerPage = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/seller/apply', {
+      const res = await fetch(`${API_URL}/seller/apply`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

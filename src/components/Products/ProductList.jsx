@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faHeart, faFilter, faSearch, faPlus, faSort } from '@fortawesome/free-solid-svg-icons';
 import ProductCard from './ProductCard';
 import axios from 'axios';
+import { API_URL } from '../../config/api';
 import '../../sec.css';
 
 const ProductList = ({ onAddToCart }) => {
@@ -19,9 +20,9 @@ const ProductList = ({ onAddToCart }) => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        let url = 'http://localhost:5000/api/products';
+        let url = `${API_URL}/products`;
         if (categoryId) {
-          url = `http://localhost:5000/api/products/category/${categoryId}`;
+          url = `${API_URL}/products/category/${categoryId}`;
         }
         const response = await axios.get(url);
         setProducts(response.data);

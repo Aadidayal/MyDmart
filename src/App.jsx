@@ -8,6 +8,7 @@ import ProductList from './components/Products/ProductList';
 import Cart from './components/Products/Cart';
 import Categories from './components/Products/Categories';
 import AuthModal from './components/Auth/AuthModal';
+import { API_URL } from './config/api';
 import './App.css';
 import axios from 'axios';
 
@@ -50,7 +51,7 @@ const AppContent = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/cart/add', {
+      const response = await axios.post(`${API_URL}/cart/add`, {
         _id: product._id,
         name: product.name,
         price: product.price,
@@ -102,7 +103,7 @@ const AppContent = () => {
     const loadCart = async () => {
       if (isAuthenticated && token) {
         try {
-          const response = await axios.get('http://localhost:5000/api/cart', {
+          const response = await axios.get(`${API_URL}/cart`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setCart(response.data.items);
