@@ -45,11 +45,19 @@ const authenticateToken = (req, res, next) => {
 // Routes
 app.post('/api/signup', async (req, res) => {
   try {
+    console.log('Signup request received:', req.body); // Debug log
     const { email, password, name } = req.body;
+    
+    // Validate input
+    if (!email || !password || !name) {
+      console.log('Missing required fields:', { email: !!email, password: !!password, name: !!name });
+      return res.status(400).json({ message: 'All fields are required' });
+    }
     
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+      console.log('User already exists:', email);
       return res.status(400).json({ message: 'User already exists' });
     }
 
@@ -65,6 +73,7 @@ app.post('/api/signup', async (req, res) => {
     });
 
     await user.save();
+    console.log('User created successfully:', user._id);
 
     // Generate JWT
     const token = jwt.sign(
@@ -84,6 +93,7 @@ app.post('/api/signup', async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Signup error:', error);
     res.status(500).json({ message: 'Error creating user', error: error.message });
   }
 });

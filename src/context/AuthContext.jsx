@@ -51,6 +51,8 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (userData) => {
     try {
+      console.log('Signup attempt with data:', userData);
+      console.log('API URL:', API_URL);
       const response = await axios.post(`${API_URL}/signup`, userData);
       const { token, user } = response.data;
       localStorage.setItem('token', token);
@@ -60,6 +62,8 @@ export const AuthProvider = ({ children }) => {
       return true;
     } catch (error) {
       console.error('Signup error:', error);
+      console.error('Error response:', error.response?.data);
+      console.error('Error status:', error.response?.status);
       return false;
     }
   };
